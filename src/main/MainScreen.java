@@ -1,12 +1,9 @@
 
 package main;
 
+import clases.Cliente;
+import clases.Directorio;
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class MainScreen extends javax.swing.JFrame {
@@ -17,14 +14,25 @@ public class MainScreen extends javax.swing.JFrame {
     
 
     private int mouseX, mouseY;
+    private Directorio directory = new Directorio();
+    private Cliente clienteAuxiliar;
+    
     
     public MainScreen() {
         initComponents();
         setSize(875, 550);
         setLocationRelativeTo(null);
+        btnClientSearch.setVisible(false);
+        setCajasTxtVisibility(false,false);
+        setLabelVisibility(false,false);
+        setButtonsVisibility(false);
+        ventanaActiva.setText("Bienvenido");
         
-        //minimizar.setIcon(new ImageIcon(new ImageIcon("src/img/minPink.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT)));
-        //cerrar.setIcon(new ImageIcon(new ImageIcon("src/img/close.png").getImage().getScaledInstance(16, 16, Image.SCALE_DEFAULT)));
+        
+        //*************************************************
+        //             Programa TP 6
+        
+        
 
        
     }
@@ -46,28 +54,27 @@ public class MainScreen extends javax.swing.JFrame {
         listPLabel = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
         WorkPanel = new javax.swing.JPanel();
-        txtTelefono = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        panelDatos = new javax.swing.JPanel();
+        labelTelefono = new javax.swing.JLabel();
+        labelDNI = new javax.swing.JLabel();
+        labelNombre = new javax.swing.JLabel();
+        labelApellido = new javax.swing.JLabel();
+        labelCiudad = new javax.swing.JLabel();
+        labelDomicilio = new javax.swing.JLabel();
         txtDNI = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtApellido = new javax.swing.JTextField();
         txtCiudad = new javax.swing.JTextField();
         txtDomicilio = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        searchClient = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        searchNumbers = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        listClients = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        ventanaActiva = new javax.swing.JLabel();
+        btncleanAddForm = new javax.swing.JLabel();
+        btnaddAddForm = new javax.swing.JLabel();
+        btnClientSearch = new javax.swing.JLabel();
+        btnPhoneSearch = new javax.swing.JLabel();
+        labelState = new javax.swing.JLabel();
+        labelListaTelefonos = new javax.swing.JLabel();
+        txtListaTelefonosE = new javax.swing.JTextArea();
         minimizar = new javax.swing.JLabel();
         cerrar = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
@@ -75,7 +82,6 @@ public class MainScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(875, 560));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(875, 560));
         setResizable(false);
         setSize(new java.awt.Dimension(875, 560));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -181,180 +187,182 @@ public class MainScreen extends javax.swing.JFrame {
 
         WorkPanel.setLayout(null);
 
-        txtTelefono.setBackground(new java.awt.Color(51, 54, 61));
-        txtTelefono.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelDatos.setBackground(new java.awt.Color(51, 54, 61));
+        panelDatos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("DNI");
-        txtTelefono.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+        labelTelefono.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        labelTelefono.setForeground(new java.awt.Color(255, 255, 255));
+        labelTelefono.setText("Telefono");
+        panelDatos.add(labelTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Nombre");
-        txtTelefono.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
+        labelDNI.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        labelDNI.setForeground(new java.awt.Color(255, 255, 255));
+        labelDNI.setText("DNI");
+        panelDatos.add(labelDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Apellido");
-        txtTelefono.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
+        labelNombre.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        labelNombre.setForeground(new java.awt.Color(255, 255, 255));
+        labelNombre.setText("Nombre");
+        panelDatos.add(labelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Ciudad");
-        txtTelefono.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, -1, -1));
+        labelApellido.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        labelApellido.setForeground(new java.awt.Color(255, 255, 255));
+        labelApellido.setText("Apellido");
+        panelDatos.add(labelApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Domicilio");
-        txtTelefono.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, -1, -1));
+        labelCiudad.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        labelCiudad.setForeground(new java.awt.Color(255, 255, 255));
+        labelCiudad.setText("Ciudad");
+        panelDatos.add(labelCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Telefono");
-        txtTelefono.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
+        labelDomicilio.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        labelDomicilio.setForeground(new java.awt.Color(255, 255, 255));
+        labelDomicilio.setText("Domicilio");
+        panelDatos.add(labelDomicilio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Limpiar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        txtTelefono.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 400, 125, 30));
-
-        txtDNI.setText("jTextField1");
+        txtDNI.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        txtDNI.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtDNI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDNIActionPerformed(evt);
             }
         });
-        txtTelefono.add(txtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 85, 200, 30));
+        panelDatos.add(txtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 135, 200, 30));
 
-        txtNombre.setText("jTextField1");
-        txtTelefono.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 135, 250, 30));
+        txtNombre.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        txtNombre.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        panelDatos.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 185, 250, 30));
 
-        txtApellido.setText("jTextField2");
-        txtTelefono.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 185, 250, 30));
+        txtApellido.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        txtApellido.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        panelDatos.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 235, 250, 30));
 
-        txtCiudad.setText("jTextField3");
-        txtTelefono.add(txtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 235, 250, 30));
+        txtCiudad.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        txtCiudad.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        panelDatos.add(txtCiudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 285, 250, 30));
 
-        txtDomicilio.setText("jTextField4");
-        txtTelefono.add(txtDomicilio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 285, 250, 30));
+        txtDomicilio.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        txtDomicilio.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        panelDatos.add(txtDomicilio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 335, 250, 30));
 
-        jTextField5.setText("jTextField5");
-        txtTelefono.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 335, 250, 30));
+        txtTelefono.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        txtTelefono.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        panelDatos.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 85, 250, 30));
 
-        jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Agregar nuevos Clientes");
-        txtTelefono.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 30, -1, -1));
+        ventanaActiva.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        ventanaActiva.setForeground(new java.awt.Color(255, 255, 255));
+        ventanaActiva.setText("Agregar nuevo cliente");
+        panelDatos.add(ventanaActiva, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 30, -1, -1));
 
-        jButton2.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Agregar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        btncleanAddForm.setBackground(new java.awt.Color(0, 134, 195));
+        btncleanAddForm.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btncleanAddForm.setForeground(new java.awt.Color(255, 255, 255));
+        btncleanAddForm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btncleanAddForm.setText("Limpiar");
+        btncleanAddForm.setOpaque(true);
+        btncleanAddForm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btncleanAddFormMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btncleanAddFormMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btncleanAddFormMouseExited(evt);
             }
         });
-        txtTelefono.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 400, 125, 30));
+        panelDatos.add(btncleanAddForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 400, 125, 30));
 
-        WorkPanel.add(txtTelefono);
-        txtTelefono.setBounds(0, 0, 550, 500);
+        btnaddAddForm.setBackground(new java.awt.Color(255, 0, 0));
+        btnaddAddForm.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btnaddAddForm.setForeground(new java.awt.Color(255, 255, 255));
+        btnaddAddForm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnaddAddForm.setText("Agregar");
+        btnaddAddForm.setOpaque(true);
+        btnaddAddForm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnaddAddFormMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnaddAddFormMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnaddAddFormMouseExited(evt);
+            }
+        });
+        panelDatos.add(btnaddAddForm, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 400, 125, 30));
 
-        searchClient.setBackground(new java.awt.Color(51, 54, 61));
+        btnClientSearch.setBackground(new java.awt.Color(255, 0, 0));
+        btnClientSearch.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btnClientSearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnClientSearch.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnClientSearch.setText("Buscar cliente");
+        btnClientSearch.setOpaque(true);
+        btnClientSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnClientSearchMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnClientSearchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnClientSearchMouseExited(evt);
+            }
+        });
+        panelDatos.add(btnClientSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 400, 125, 30));
 
-        jLabel2.setText("search client");
+        btnPhoneSearch.setBackground(new java.awt.Color(255, 0, 0));
+        btnPhoneSearch.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        btnPhoneSearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnPhoneSearch.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnPhoneSearch.setText("Buscar telefonos");
+        btnPhoneSearch.setOpaque(true);
+        btnPhoneSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPhoneSearchMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPhoneSearchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPhoneSearchMouseExited(evt);
+            }
+        });
+        panelDatos.add(btnPhoneSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(305, 400, 125, 30));
 
-        javax.swing.GroupLayout searchClientLayout = new javax.swing.GroupLayout(searchClient);
-        searchClient.setLayout(searchClientLayout);
-        searchClientLayout.setHorizontalGroup(
-            searchClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(searchClientLayout.createSequentialGroup()
-                .addGap(216, 216, 216)
-                .addComponent(jLabel2)
-                .addContainerGap(264, Short.MAX_VALUE))
-        );
-        searchClientLayout.setVerticalGroup(
-            searchClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(searchClientLayout.createSequentialGroup()
-                .addGap(229, 229, 229)
-                .addComponent(jLabel2)
-                .addContainerGap(255, Short.MAX_VALUE))
-        );
+        labelState.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        labelState.setForeground(new java.awt.Color(255, 255, 255));
+        labelState.setText("Estado: Conectado al sistema");
+        labelState.setToolTipText("");
+        panelDatos.add(labelState, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, -1, -1));
 
-        WorkPanel.add(searchClient);
-        searchClient.setBounds(0, 0, 550, 500);
+        labelListaTelefonos.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        labelListaTelefonos.setForeground(new java.awt.Color(255, 255, 255));
+        labelListaTelefonos.setText("Telefonos");
+        panelDatos.add(labelListaTelefonos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, -1, -1));
 
-        searchNumbers.setBackground(new java.awt.Color(51, 54, 61));
+        txtListaTelefonosE.setColumns(20);
+        txtListaTelefonosE.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
+        txtListaTelefonosE.setForeground(new java.awt.Color(255, 255, 255));
+        txtListaTelefonosE.setRows(5);
+        panelDatos.add(txtListaTelefonosE, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 250, -1));
 
-        jLabel3.setText("Search phones opcion 3");
-
-        javax.swing.GroupLayout searchNumbersLayout = new javax.swing.GroupLayout(searchNumbers);
-        searchNumbers.setLayout(searchNumbersLayout);
-        searchNumbersLayout.setHorizontalGroup(
-            searchNumbersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(searchNumbersLayout.createSequentialGroup()
-                .addGap(198, 198, 198)
-                .addComponent(jLabel3)
-                .addContainerGap(218, Short.MAX_VALUE))
-        );
-        searchNumbersLayout.setVerticalGroup(
-            searchNumbersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(searchNumbersLayout.createSequentialGroup()
-                .addGap(235, 235, 235)
-                .addComponent(jLabel3)
-                .addContainerGap(249, Short.MAX_VALUE))
-        );
-
-        WorkPanel.add(searchNumbers);
-        searchNumbers.setBounds(0, 0, 550, 500);
-
-        listClients.setBackground(new java.awt.Color(51, 54, 61));
-
-        jLabel4.setText("opcion 4");
-
-        javax.swing.GroupLayout listClientsLayout = new javax.swing.GroupLayout(listClients);
-        listClients.setLayout(listClientsLayout);
-        listClientsLayout.setHorizontalGroup(
-            listClientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listClientsLayout.createSequentialGroup()
-                .addContainerGap(251, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(252, 252, 252))
-        );
-        listClientsLayout.setVerticalGroup(
-            listClientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(listClientsLayout.createSequentialGroup()
-                .addGap(225, 225, 225)
-                .addComponent(jLabel4)
-                .addContainerGap(259, Short.MAX_VALUE))
-        );
-
-        WorkPanel.add(listClients);
-        listClients.setBounds(0, 0, 550, 500);
+        WorkPanel.add(panelDatos);
+        panelDatos.setBounds(0, 0, 550, 500);
 
         background.add(WorkPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 35, 550, 500));
 
         minimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/minPink.png"))); // NOI18N
         minimizar.setAlignmentY(0.0F);
         minimizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        minimizar.setPreferredSize(new java.awt.Dimension(26, 26));
         minimizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 minimizarMouseClicked(evt);
             }
         });
         background.add(minimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 26, 26));
-        minimizar.getAccessibleContext().setAccessibleName("");
 
         cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cerrar.png"))); // NOI18N
-        cerrar.setMaximumSize(new java.awt.Dimension(26, 26));
-        cerrar.setMinimumSize(new java.awt.Dimension(26, 26));
-        cerrar.setPreferredSize(new java.awt.Dimension(26, 26));
         cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cerrarMouseClicked(evt);
@@ -364,8 +372,8 @@ public class MainScreen extends javax.swing.JFrame {
 
         titulo.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
         titulo.setForeground(new java.awt.Color(255, 255, 255));
-        titulo.setText("Libreta de contactos");
-        background.add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 10, -1, -1));
+        titulo.setText("ADMINISTRADOR DE CLIENTES");
+        background.add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 5, -1, -1));
 
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 875, 560));
 
@@ -373,21 +381,40 @@ public class MainScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addCLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addCLabelMouseClicked
-        txtTelefono.setVisible(true);
-        searchClient.setVisible(false);
-        searchNumbers.setVisible(false);
-        listClients.setVisible(false);
-        //addDeleteClient.setBackground(Color.red);
+        ventanaActiva.setText("Agregar nuevo cliente");
+        labelState.setText("Estado: agregar nuevo cliente...");
+        setCajasTxtVisibility(true,false);
+        setLabelVisibility(true,false);
+        setButtonsVisibility(false);
+        btnaddAddForm.setVisible(true);
+        btncleanAddForm.setVisible(true);
+        limpiarCajasTxt();
         
+
+        addCLabel.setBackground(Color.red);
     }//GEN-LAST:event_addCLabelMouseClicked
 
     private void findCLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_findCLabelMouseClicked
-        txtTelefono.setVisible(false);
-        searchClient.setVisible(true);
-        searchNumbers.setVisible(false);
-        listClients.setVisible(false);
+        ventanaActiva.setText("Buscar cliente por No Telefonico");
+        labelState.setText("Estado: Buscar cliente por telefono...");
+        setButtonsVisibility(false);
+        btnClientSearch.setVisible(true);
+        btncleanAddForm.setVisible(true);
+        setCajasTxtVisibility(true,false);
+        setLabelVisibility(true,false);
+
+        limpiarCajasTxt();
+
+        
+        txtTelefono.setEnabled(true);
+        directory.buscarCliente(Long.parseLong(txtTelefono.getText(),10));
+        
     }//GEN-LAST:event_findCLabelMouseClicked
 
+
+    private void rellenarCajasConCliente(Cliente p_cliente){
+        
+    }
     private void cerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cerrarMouseClicked
         dispose();
     }//GEN-LAST:event_cerrarMouseClicked
@@ -439,32 +466,144 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_listPLabelMouseExited
 
     private void findPLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_findPLabelMouseClicked
-        txtTelefono.setVisible(false);
-        searchClient.setVisible(false);
-        searchNumbers.setVisible(true);
-        listClients.setVisible(false);
+        ventanaActiva.setText("Buscar telefonos por apellido");
+        labelState.setText("Estado: Buscar telefonos por apellido");
+        setButtonsVisibility(false);
+        btnPhoneSearch.setVisible(true);
+        btncleanAddForm.setVisible(true);
+        setCajasTxtVisibility(false,true);
+        txtApellido.setVisible(true);
+        setLabelVisibility(false,true);
+        
+        txtTelefono.setEnabled(true);
+        
+
+
     }//GEN-LAST:event_findPLabelMouseClicked
-
+    
+    
+    
     private void listPLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listPLabelMouseClicked
-        txtTelefono.setVisible(false);
-        searchClient.setVisible(false);
-        searchNumbers.setVisible(false);
-        listClients.setVisible(true);
+        ventanaActiva.setText("Listar clientes de una ciudad");
+        labelState.setText("Estado: Listar clientes por ciudad...");
     }//GEN-LAST:event_listPLabelMouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDNIActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDNIActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnaddAddFormMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnaddAddFormMouseClicked
+        
+        directory.agregarCliente(Long.parseLong(txtTelefono.getText(),10) , new Cliente(Long.parseLong(txtDNI.getText(),10), txtNombre.getText(), txtApellido.getText(), txtCiudad.getText(),txtDomicilio.getText()));
+        labelState.setText("Estado: cliente "+ txtTelefono.getText()+ " agregado correctamente.");
+    }//GEN-LAST:event_btnaddAddFormMouseClicked
+
+    private void btncleanAddFormMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncleanAddFormMouseEntered
+        btncleanAddForm.setBackground(new Color(115,232,255));
+    }//GEN-LAST:event_btncleanAddFormMouseEntered
+
+    private void btncleanAddFormMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncleanAddFormMouseExited
+        btncleanAddForm.setBackground(new Color(0,134,195));
+    }//GEN-LAST:event_btncleanAddFormMouseExited
+
+    private void btnaddAddFormMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnaddAddFormMouseEntered
+        btnaddAddForm.setBackground(new Color(194,0,0));
+    }//GEN-LAST:event_btnaddAddFormMouseEntered
+
+    private void btnaddAddFormMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnaddAddFormMouseExited
+        btnaddAddForm.setBackground(new Color(255,0,0));
+    }//GEN-LAST:event_btnaddAddFormMouseExited
+
+    private void btncleanAddFormMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncleanAddFormMouseClicked
+        limpiarCajasTxt();
+    }//GEN-LAST:event_btncleanAddFormMouseClicked
+
+    private void btnClientSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientSearchMouseClicked
+        parseClienteAForm(directory.buscarCliente(Long.parseLong(txtTelefono.getText(),10)));        
+    }//GEN-LAST:event_btnClientSearchMouseClicked
+
+    private void parseClienteAForm(Cliente p_cliente){ 
+        txtDNI.setText(String.valueOf(p_cliente.getDni()));
+        txtNombre.setText(p_cliente.getNombre());
+        txtApellido.setText(p_cliente.getApellido());
+        txtCiudad.setText(p_cliente.getCiudad());
+        txtDomicilio.setText(p_cliente.getDireccion());
+    }
+    private void btnClientSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientSearchMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnClientSearchMouseEntered
+
+    private void btnClientSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClientSearchMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClientSearchMouseExited
+
+    private void btnPhoneSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhoneSearchMouseClicked
+        txtListaTelefonosE.setText("");
+        
+        for (Long item : directory.buscarTelefono(txtApellido.getText())) {
+
+            txtListaTelefonosE.setText(txtListaTelefonosE.getText()+item.toString()+"\n");            
+
+        }
+    }//GEN-LAST:event_btnPhoneSearchMouseClicked
+
+    private void btnPhoneSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhoneSearchMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPhoneSearchMouseEntered
+
+    private void btnPhoneSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhoneSearchMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPhoneSearchMouseExited
+    
+    private void limpiarCajasTxt (){
+        txtDNI.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtCiudad.setText("");
+        txtDomicilio.setText("");
+        txtTelefono.setText("");
+        txtListaTelefonosE.setText("");
+    }
+    
+    private void setCajasTxTEnabled(boolean p){
+        txtDNI.setEnabled(p);
+        txtNombre.setEnabled(p);
+        txtApellido.setEnabled(p);
+        txtCiudad.setEnabled(p);
+        txtDomicilio.setEnabled(p);
+        txtTelefono.setEnabled(p);
+    }
     
     
+    private void setCajasTxtVisibility(boolean p, boolean q){
+        txtDNI.setVisible(p);
+        txtNombre.setVisible(p);
+        txtApellido.setVisible(p);
+        txtCiudad.setVisible(p);
+        txtDomicilio.setVisible(p);
+        txtTelefono.setVisible(p);
+        txtListaTelefonosE.setVisible(q);
+       
+    }
+    
+
+        
+        private void setLabelVisibility(boolean p,boolean q){
+            labelTelefono.setVisible(p);
+            labelDNI.setVisible(p);
+            labelNombre.setVisible(p);
+            labelApellido.setVisible(p || q);
+            labelCiudad.setVisible(p);
+            labelDomicilio.setVisible(p);
+            labelListaTelefonos.setVisible(q);
+        }
+        
+        private void setButtonsVisibility(boolean p){
+            btncleanAddForm.setVisible(p);
+            btnaddAddForm.setVisible(p);
+            btnClientSearch.setVisible(p);
+            btnPhoneSearch.setVisible(p);
+        }
 
     /**
      * @param args the command line arguments
@@ -506,34 +645,33 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JPanel WorkPanel;
     private javax.swing.JLabel addCLabel;
     private javax.swing.JPanel background;
+    private javax.swing.JLabel btnClientSearch;
+    private javax.swing.JLabel btnPhoneSearch;
+    private javax.swing.JLabel btnaddAddForm;
+    private javax.swing.JLabel btncleanAddForm;
     private javax.swing.JLabel cerrar;
     private javax.swing.JLabel findCLabel;
     private javax.swing.JLabel findPLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JPanel listClients;
+    private javax.swing.JLabel labelApellido;
+    private javax.swing.JLabel labelCiudad;
+    private javax.swing.JLabel labelDNI;
+    private javax.swing.JLabel labelDomicilio;
+    private javax.swing.JLabel labelListaTelefonos;
+    private javax.swing.JLabel labelNombre;
+    private javax.swing.JLabel labelState;
+    private javax.swing.JLabel labelTelefono;
     private javax.swing.JLabel listPLabel;
     private javax.swing.JLabel logo;
     private javax.swing.JLabel minimizar;
-    private javax.swing.JPanel searchClient;
-    private javax.swing.JPanel searchNumbers;
+    private javax.swing.JPanel panelDatos;
     private javax.swing.JLabel titulo;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCiudad;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtDomicilio;
+    private javax.swing.JTextArea txtListaTelefonosE;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JPanel txtTelefono;
+    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JLabel ventanaActiva;
     // End of variables declaration//GEN-END:variables
 }
