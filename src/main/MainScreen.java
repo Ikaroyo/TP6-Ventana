@@ -415,6 +415,7 @@ public class MainScreen extends javax.swing.JFrame {
         btnaddAddForm.setVisible(true);
         btncleanAddForm.setVisible(true);
         limpiarCajasTxt();    
+        txtTelefono.requestFocus();
         color1=colorSelected;
         addCLabel.setBackground(color1);
         color2=colorUnselected;
@@ -436,6 +437,7 @@ public class MainScreen extends javax.swing.JFrame {
         txtTelefono.setEditable(true);
         setCajasTxtVisibility(true,false);
         setLabelVisibility(true,false);
+        txtTelefono.requestFocus();
         color1=colorUnselected;
         addCLabel.setBackground(color1);
         color2=colorSelected;
@@ -506,7 +508,7 @@ public class MainScreen extends javax.swing.JFrame {
         txtListaTelefonosE.setEditable(false);
         txtTelefono.setEditable(true);
         labelListaTelefonos.setText("Telefonos");
-        
+        txtApellido.grabFocus();
         color1=colorUnselected;
         addCLabel.setBackground(color1);
         color2=colorUnselected;
