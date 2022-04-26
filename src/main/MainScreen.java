@@ -6,8 +6,6 @@ import clases.Directorio;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
-import javax.swing.UIManager;
-import javax.swing.plaf.ColorUIResource;
 
 public class MainScreen extends javax.swing.JFrame {
 
