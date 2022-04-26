@@ -4,10 +4,10 @@ package main;
 import clases.Cliente;
 import clases.Directorio;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 
 public class MainScreen extends javax.swing.JFrame {
 
@@ -25,22 +25,22 @@ public class MainScreen extends javax.swing.JFrame {
     private Color color3 = new Color(102,102,102);
     private Color colorHover = new Color(255,50,50);
     private Color colorSelected = new Color(225,0,0);
-    private int selectedPanel=0;
+      
     
     public MainScreen() {
         initComponents();
         setSize(875, 550);
-
         setIconImage(Toolkit.getDefaultToolkit().getImage("src/img/contact.png"));
         setLocationRelativeTo(null);
         setCajasTxtVisibility(false,false);
         setLabelVisibility(false,false);
         setButtonsVisibility(false);
-        //listPLabel.setVisible(false);
         ventanaActiva.setText("Bienvenido");
       
     }
 
+        
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,7 +55,6 @@ public class MainScreen extends javax.swing.JFrame {
         addCLabel = new javax.swing.JLabel();
         findCLabel = new javax.swing.JLabel();
         findPLabel = new javax.swing.JLabel();
-        listPLabel = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         WorkPanel = new javax.swing.JPanel();
@@ -168,25 +167,6 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
         PanelPrincipal.add(findPLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 280, 220, 40));
-
-        listPLabel.setBackground(new java.awt.Color(102, 102, 102));
-        listPLabel.setFont(new java.awt.Font("Roboto Black", 0, 14)); // NOI18N
-        listPLabel.setForeground(new java.awt.Color(255, 255, 255));
-        listPLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        listPLabel.setText("Listar clientes de una ciudad");
-        listPLabel.setOpaque(true);
-        listPLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listPLabelMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                listPLabelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                listPLabelMouseExited(evt);
-            }
-        });
-        PanelPrincipal.add(listPLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 330, 220, 40));
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/contact.png"))); // NOI18N
         logo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -427,7 +407,7 @@ public class MainScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addCLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addCLabelMouseClicked
-        selectedPanel=1;
+
         ventanaActiva.setText("Agregar nuevo cliente");
         labelState.setText("Estado: Agregar nuevo cliente...");
         setCajasTxTEditable(true);
@@ -446,7 +426,7 @@ public class MainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_addCLabelMouseClicked
 
     private void findCLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_findCLabelMouseClicked
-        selectedPanel=2;
+
         ventanaActiva.setText("Buscar cliente por Nº Telefonico");
         labelState.setText("Estado: Buscar cliente por telefono...");
         limpiarCajasTxt();
@@ -512,16 +492,8 @@ public class MainScreen extends javax.swing.JFrame {
         findPLabel.setBackground(color3);
     }//GEN-LAST:event_findPLabelMouseExited
 
-    private void listPLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listPLabelMouseEntered
-        listPLabel.setBackground(Color.red);
-    }//GEN-LAST:event_listPLabelMouseEntered
-
-    private void listPLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listPLabelMouseExited
-        listPLabel.setBackground(new Color(102,102,102));
-    }//GEN-LAST:event_listPLabelMouseExited
-
     private void findPLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_findPLabelMouseClicked
-        selectedPanel=3;
+
         ventanaActiva.setText("Buscar telefonos por apellido");
         labelState.setText("Estado: Buscar telefonos por apellido");
         setCajasTxTEditable(false);
@@ -548,22 +520,6 @@ public class MainScreen extends javax.swing.JFrame {
     
     
     
-    private void listPLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listPLabelMouseClicked
-        ventanaActiva.setText("Listar clientes de una ciudad");
-        labelState.setText("Estado: Listar clientes por ciudad...");
-        setCajasTxtVisibility(false,true);
-        setCajasTxTEditable(false);
-        txtCiudad.setEditable(true);
-        txtListaTelefonosE.setEditable(false);
-        setLabelVisibility(false, false);
-        setButtonsVisibility(false);        
-        btncleanAddForm.setVisible(true);        
-        txtCiudad.setVisible(true);
-        labelCiudad.setVisible(true);        
-        labelListaTelefonos.setVisible(true);
-        labelListaTelefonos.setText("Lista de clientes");
-    }//GEN-LAST:event_listPLabelMouseClicked
-
     private void btnPhoneSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhoneSearchMouseExited
         btnPhoneSearch.setBackground(new Color(225,0,0));
     }//GEN-LAST:event_btnPhoneSearchMouseExited
@@ -771,7 +727,6 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelState;
     private javax.swing.JLabel labelTelefono;
-    private javax.swing.JLabel listPLabel;
     private javax.swing.JLabel logo;
     private javax.swing.JLabel minimizar;
     private javax.swing.JPanel panelDatos;
